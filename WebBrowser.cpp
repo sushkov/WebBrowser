@@ -1,18 +1,18 @@
 #include "WebBrowser.h"
 
 WebBrowser::WebBrowser() : QWidget(){
-    this->setAttribute(Qt::WA_DeleteOnClose,true); // флаг  освобождения памяти при закрытии
+    this->setAttribute(Qt::WA_DeleteOnClose,true);
     pcmdAdd = new QPushButton(QIcon(":/images/add.png"), tr(""), this);
     pcmdConfig = new QPushButton (QIcon(":/images/config.png"), tr(""), this);
 
     menuconfig = new QMenu;
-    newWinAct = new QAction(QIcon(":/images/new.png"),tr("&Новое окно"), this);
+    newWinAct = new QAction(QIcon(":/images/new.png"),tr("&РќРѕРІРѕРµ РѕРєРЅРѕ"), this);
     connect(newWinAct, SIGNAL(triggered()), this, SLOT(newWindow()));
 
-    addAct = new QAction(QIcon(":/images/add.png"),tr("&Новая вкладка"), this);
+    addAct = new QAction(QIcon(":/images/add.png"),tr("&РќРѕРІР°СЏ РІРєР»Р°РґРєР°"), this);
     connect(addAct, SIGNAL(triggered()), this, SLOT(createNewTab()));
 
-    aboutAct = new QAction(QIcon(":/images/about.png"),tr("&О программе"), this);
+    aboutAct = new QAction(QIcon(":/images/about.png"),tr("&Рћ РїСЂРѕРіСЂР°РјРјРµ"), this);
     connect(aboutAct, SIGNAL(triggered()), this, SLOT(about()));
     pcmdConfig->setMaximumSize(25,25);
 
@@ -24,7 +24,7 @@ WebBrowser::WebBrowser() : QWidget(){
     ftab = new TabPage();
 
     tabWidget = new QTabWidget;
-    tabWidget->addTab(ftab , tr("Новая вкладка"));
+    tabWidget->addTab(ftab , tr("РќРѕРІР°СЏ РІРєР»Р°РґРєР°"));
     tabWidget->setMovable(true);
     tabWidget->setTabsClosable(true);
 
@@ -43,14 +43,14 @@ WebBrowser::WebBrowser() : QWidget(){
 
 void WebBrowser::closeTab(int index){
 
-    TabPage *tab = qobject_cast<TabPage*>(tabWidget->widget(index)); // приведение типов
+    TabPage *tab = qobject_cast<TabPage*>(tabWidget->widget(index));
     tabWidget->removeTab(index);
     tab->close();
 }
 
 void WebBrowser::createNewTab(){
     TabPage* ptab = new TabPage();
-    tabWidget->addTab(ptab, tr("Новая вкладка"));
+    tabWidget->addTab(ptab, tr("РќРѕРІР°СЏ РІРєР»Р°РґРєР°");
 }
 void WebBrowser::newWindow(){
     WebBrowser* newWin = new WebBrowser;
@@ -58,7 +58,7 @@ void WebBrowser::newWindow(){
 
 }
 void WebBrowser::about(){
-   QMessageBox::about(this, tr("О программе"), tr("Курсовая работа по программированию <br> Браузер"));
+   QMessageBox::about(this, tr("Рћ РїСЂРѕРіСЂР°РјРјРµ", tr("РљСѓСЂСЃРѕРІР°СЏ СЂР°Р±РѕС‚Р° РїРѕ РїСЂРѕРіСЂР°РјРјРёСЂРѕРІР°РЅРёСЋ <br> Р‘СЂР°СѓР·РµСЂ"));
 }
 //--------------------------------------------------------------------------------------------------------
 TabPage::TabPage() : QWidget(){
@@ -113,7 +113,7 @@ TabPage::TabPage() : QWidget(){
 }
 
 
-void TabPage::slotGo(){ // проверка на волидность ввода в адресную строку
+void TabPage::slotGo(){
     if (!m_ptxt->text().startsWith("ftp:/") && !m_ptxt->text().startsWith("http://")) m_ptxt->setText("http://" + m_ptxt->text());
     page->load(QUrl(m_ptxt->text()));
 }
@@ -121,7 +121,7 @@ void TabPage::slotFinished(){
     m_ptxt->setText(page->url().toString());
     m_pcmdBack->setEnabled(page->page()->history()->canGoBack());
     m_pcmdForward->setEnabled(page->page()->history()->canGoForward());
-    page->page()->setLinkDelegationPolicy(QWebPage::DelegateAllLinks); // аквтивация перехода по ссылкам
+    page->page()->setLinkDelegationPolicy(QWebPage::DelegateAllLinks);
     connect(page, SIGNAL(linkClicked(QUrl)),this, SLOT(setLink(QUrl)));
 }
 void TabPage::setLink(QUrl linkUrl){
@@ -134,9 +134,9 @@ void TabPage::downloadFile(){
     QFileInfo fileInfo=aUrl.path();
     fileName = fileInfo.fileName();
     if (QFile::exists(fileName)) {
-        if (QMessageBox::question(this, tr("Загрузка"),
-                                  tr("Файл %1 уже существует в "
-                                     "текущем каталоге. Перезаписать?").arg(fileName),
+        if (QMessageBox::question(this, tr("Р—Р°РіСЂСѓР·РєР°"),
+                                  tr("Р¤Р°Р№Р» %1 СѓР¶Рµ СЃСѓС‰РµСЃС‚РІСѓРµС‚ РІ "
+                                     "С‚РµРєСѓС‰РµРј РєР°С‚Р°Р»РѕРіРµ. РџРµСЂРµР·Р°РїРёСЃР°С‚СЊ?").arg(fileName),
                                   QMessageBox::Yes|QMessageBox::No, QMessageBox::No)
             == QMessageBox::No)
             return;
@@ -144,11 +144,11 @@ void TabPage::downloadFile(){
     }
     progressDialog = new QProgressDialog;
     m_NetworkMngr = new QNetworkAccessManager(this);
-    reply = m_NetworkMngr->get(QNetworkRequest(downloadUrl)); // загрузка
-    connect(reply, SIGNAL(downloadProgress(qint64,qint64)),this, SLOT(updateDataReadProgress(qint64,qint64))); //процесс
+    reply = m_NetworkMngr->get(QNetworkRequest(downloadUrl));
+    connect(reply, SIGNAL(downloadProgress(qint64,qint64)),this, SLOT(updateDataReadProgress(qint64,qint64))); //пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     connect(progressDialog, SIGNAL(canceled()), this, SLOT(cancelDownload()));
-    progressDialog->setWindowTitle(tr("Загрузка"));
-    progressDialog->setLabelText(tr("Загружается %1.").arg(fileName));
+    progressDialog->setWindowTitle(tr("Р—Р°РіСЂСѓР·РєР°"));
+    progressDialog->setLabelText(tr("Р—Р°РіСЂСѓР¶Р°РµС‚СЃСЏ %1.").arg(fileName));
     progressDialog->show();
 
     QEventLoop loop;
