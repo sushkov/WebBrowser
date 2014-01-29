@@ -1,6 +1,6 @@
 #ifndef WEBBROWSER_H
 #define WEBBROWSER_H
-//подключение всех элементов
+
 #include <QWidget>
 #include <QLineEdit>
 #include <QtGui>
@@ -43,10 +43,10 @@ private:
         QPushButton* pcmdConfig;
         QMenu* menuconfig;
 private slots:
-        void closeTab(int index); // закрытие вкладки по индексу
-        void createNewTab(); // создание ново вкладки
-        void newWindow(); // открытие нового окна
-        void about(); // вывод информации о программе
+        void closeTab(int index); 
+        void createNewTab(); 
+        void newWindow(); 
+        void about(); 
 };
 //-------------------------------------------------------------------
 class TabPage : public QWidget{
@@ -74,12 +74,12 @@ private:
 public:
     TabPage();
 private slots:
-    void slotGo(); // переход по ссылке
-    void slotFinished(); // конец загрузки страницы
-    void setLink(QUrl linkUrl); // загрузка по внешней ссылке и сохранение ссылки загрузки
-    void updateDataReadProgress(qint64 bytesRead, qint64 totalBytes); // отображение процесса загрузки файла
-    void cancelDownload(); // отмена загрузки файла
-    void downloadFile(); // загрузка файла
+    void slotGo(); 
+    void slotFinished();
+    void setLink(QUrl linkUrl);
+    void updateDataReadProgress(qint64 bytesRead, qint64 totalBytes);
+    void cancelDownload(); 
+    void downloadFile();
 };
 
 #endif // WEBBROWSER_H
