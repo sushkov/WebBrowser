@@ -1,3 +1,12 @@
-<b>WebBrowser</b> - simple Internet browser <br>
-Authors: Vladimir Sushkov, Pavel Lebed' <br>
+# WebBrowser - simple Internet browser
+<div align="center">
+    <img src="screenshots/screen_1.png">
+    <i>Browser window</i>
+    <img src="screenshots/screen_2.jpg">
+    <i>Download file</i>
+    <img src="screenshots/screen_3.jpg">
+    <i>Settings menu</i>
+</div>
+This is my first university course work :)<br>
+Authors: Vladimir Sushkov and Pavel Lebed'<br>
 Development tools: C++/Qt/Webkit
